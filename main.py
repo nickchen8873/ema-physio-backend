@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 import jwt
 import joblib
 import pandas as pd
@@ -7,10 +9,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 
-# --- 安全設定 (未來請移至 .env) ---
-SECRET_KEY = "ming-sian-super-secret-key" # 🚨 請換成你自己的亂碼
-ALGORITHM = "HS256"
-ADMIN_PASSWORD = "my-secure-password" # 暫時硬編碼的後台密碼
+# 載入 .env 檔案中的變數到系統環境變數中
+load_dotenv()
+
+# 使用 os.getenv() 讀取變數
+SUPABASE_JWT_SECRET = os.getenv("SUPABASE_JWT_SECRET")
+ALGORITHM = os.getenv("ALGORITHM")
 
 # 告訴 FastAPI 我們的 Token 會從 Header 的 Bearer 傳進來
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
@@ -41,9 +45,6 @@ class PhysioFeatures(BaseModel):
     is_weekend: int
     mvpa_yesterday: float
     line_user_id: str = None  # 💡 新增這一行，讓前端可以直接傳 LINE ID 進來
-
-# 🚨 請將剛才複製的 JWT Secret 貼在這裡 (未來重構請移至 .env)
-SUPABASE_JWT_SECRET = "VyMliJ7kG7W3Y9LMUsd9d4BHQEV5cbPg4iP0PBlebmxH+GWtkBBSkUxbZNK38fYN2PQRmdVl2d90tDdvv58urQ=="
 
 # --- 1. 驗證 Token 的依賴函數 ---
 def verify_token(token: str = Depends(oauth2_scheme)):
