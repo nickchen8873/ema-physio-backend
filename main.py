@@ -25,7 +25,7 @@ app = FastAPI(title="EMA Physio API", version="1.0.0")
 # 1. 設定 CORS (開發階段先全開，上線時記得改成 Vue 前端的真實網址)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # ⚠️ 正式環境請改為前端 Domain，例如 ["[https://your-vue-app.com](https://your-vue-app.com)"]
+    allow_origins=["https://ema-physio-frontend.vercel.app/"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
