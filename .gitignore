@@ -1,0 +1,39 @@
+# === 機密與環境變數 (重要！) ===
+.env
+.env.*
+!.env.example
+
+# === 虛擬環境 ===
+venv/
+.venv/
+env/
+.env_venv/
+
+# === Python 快取與編譯檔案 ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# === 測試與型別檢查 ===
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# === 本地資料庫與日誌 ===
+*.sqlite3
+*.db
+*.log
+
+# === 套件打包與發布 ===
+build/
+dist/
+*.egg-info/
+*.egg
+
+# === 編輯器與系統檔案 ===
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
